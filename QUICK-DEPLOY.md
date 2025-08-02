@@ -18,7 +18,7 @@ git push -u origin main
 3. Connect GitHub and select your repository
 4. Set build settings:
    - **Build command**: `pnpm build`
-   - **Publish directory**: `out`
+   - **Publish directory**: Leave empty (Netlify will auto-detect)
 5. Click **"Deploy site"**
 
 ### Step 3: Set Environment Variables
@@ -35,8 +35,9 @@ In Netlify dashboard → Site settings → Environment variables:
 
 ### Step 2: Upload to Netlify
 1. Go to [netlify.com](https://netlify.com)
-2. Drag and drop the `out` folder to the deploy area
-3. Your site will be live instantly!
+2. Click **"Add new site"** → **"Deploy manually"**
+3. Drag and drop your entire project folder
+4. Your site will be live instantly!
 
 ### Step 3: Set Environment Variables
 - Go to Site settings → Environment variables

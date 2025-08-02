@@ -23,15 +23,15 @@ echo "🔨 Building project..."
 pnpm build
 
 # Check if build was successful
-if [ -d "out" ]; then
-    echo "✅ Build successful! Files are in the 'out' directory."
+if [ -d ".next" ]; then
+    echo "✅ Build successful! Files are in the '.next' directory."
     echo ""
     echo "📋 Next steps:"
     echo "1. Go to netlify.com"
-    echo "2. Drag and drop the 'out' folder to deploy"
-    echo "3. Or use the Netlify UI to connect your Git repository"
+    echo "2. Connect your Git repository for automatic deployments"
+    echo "3. Or drag and drop the entire project folder for manual deployment"
     echo ""
-    echo "📁 Your built files are ready in: $(pwd)/out"
+    echo "📁 Your built files are ready in: $(pwd)/.next"
 else
     echo "❌ Build failed. Check the error messages above."
     exit 1

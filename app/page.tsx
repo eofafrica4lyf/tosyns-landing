@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { Check, FileText, Calendar, Key, Home } from "lucide-react"
-import { submitContactForm } from "./actions/contact"
 
 export default function TosynsLanding() {
   const [formState, setFormState] = useState<{
@@ -16,17 +15,42 @@ export default function TosynsLanding() {
   }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setIsSubmitting(true)
-    const result = await submitContactForm(formData)
-    setFormState(result)
-    setIsSubmitting(false)
-
-    if (result.success) {
-      // Reset form
-      const form = document.getElementById("contact-form") as HTMLFormElement
-      form?.reset()
+    
+    const formData = new FormData(event.currentTarget)
+    const data = {
+      name: formData.get("name") as string,
+      phone: formData.get("phone") as string,
+      address: formData.get("address") as string,
+      message: formData.get("message") as string,
     }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+      setFormState(result)
+      
+      if (result.success) {
+        // Reset form
+        event.currentTarget.reset()
+      }
+    } catch (error) {
+      setFormState({
+        success: false,
+        error: "Something went wrong. Please try again.",
+      })
+    }
+    
+    setIsSubmitting(false)
   }
 
   return (
@@ -201,7 +225,7 @@ export default function TosynsLanding() {
           </div>
 
           <Card className="p-8">
-            <form id="contact-form" action={handleSubmit} className="space-y-6">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <Input type="text" name="name" placeholder="Name" required className="w-full" />
