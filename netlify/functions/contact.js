@@ -11,6 +11,11 @@ exports.handler = async function (event, context) {
     const data = JSON.parse(event.body);
     const { name, phone, address, message } = data;
 
+    // Debug logging
+    console.log('Received form data:', { name, phone, address, message });
+    console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+    console.log('CONTACT_EMAIL:', process.env.CONTACT_EMAIL);
+
     // Basic validation
     if (!name || !phone || !address) {
       return {
@@ -46,8 +51,13 @@ exports.handler = async function (event, context) {
     });
 
     if (!response.ok) {
-      throw new Error(`Resend API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Resend API error:', response.status, errorText);
+      throw new Error(`Resend API error: ${response.status} - ${errorText}`);
     }
+
+    const result = await response.json();
+    console.log('Resend API success:', result);
 
     return {
       statusCode: 200,
