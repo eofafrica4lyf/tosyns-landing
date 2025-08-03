@@ -28,8 +28,8 @@ export default function TosynsLanding() {
     }
 
     try {
-      // Using Resend for email sending
-      const response = await fetch("/api/contact", {
+      // Using Netlify function for email sending
+      const response = await fetch("/.netlify/functions/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
