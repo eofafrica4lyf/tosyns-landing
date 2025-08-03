@@ -27,16 +27,30 @@ export default function TosynsLanding() {
       message: formData.get("message") as string,
     }
 
-    // For static export, we'll use a simple success message
-    // In production, you can integrate with services like Formspree, Netlify Forms, or similar
-    setTimeout(() => {
-      setFormState({
-        success: true,
-        message: "Thank you! We'll contact you within 24 hours.",
+    try {
+      // Using Resend for email sending
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       })
-      event.currentTarget.reset()
-      setIsSubmitting(false)
-    }, 1000)
+
+      const result = await response.json()
+      setFormState(result)
+      
+      if (result.success) {
+        event.currentTarget.reset()
+      }
+    } catch (error) {
+      setFormState({
+        success: false,
+        error: "Something went wrong. Please try again.",
+      })
+    }
+    
+    setIsSubmitting(false)
   }
 
   return (
