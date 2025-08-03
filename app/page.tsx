@@ -109,44 +109,51 @@ export default function TosynsLanding() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative h-[600px] lg:h-[700px]">
-          {/* Right side - House Image */}
-          <div className="absolute inset-0">
-            <img
-              src="/images/house.jpg"
-              alt="Beautiful two-story home"
-              className="w-full h-full object-cover object-right"
-            />
-          </div>
+              {/* Hero Section */}
+        <section className="relative overflow-hidden">
+          <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px]">
+            {/* Right side - House Image */}
+            <div className="absolute inset-0">
+              <img
+                src="/images/house.jpg"
+                alt="Beautiful two-story home"
+                className="w-full h-full object-cover sm:object-cover md:object-cover lg:object-fill object-center sm:object-right"
+              />
+            </div>
 
-          {/* Left side - Diagonal Teal Overlay */}
-          <div
-            className="absolute inset-0 bg-teal-800"
-            style={{
-              clipPath: "polygon(0 0, 50% 0, 35% 100%, 0 100%)",
-            }}
-          ></div>
+            {/* Full coverage overlay for mobile */}
+            <div
+              className="absolute inset-0 bg-teal-800 md:hidden"
+              style={{
+                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+              }}
+            ></div>
+            {/* Diagonal overlay for larger screens */}
+            <div
+              className="absolute inset-0 bg-teal-800 hidden md:block"
+              style={{
+                clipPath: "polygon(0 0, 60% 0, 50% 100%, 0 100%)",
+              }}
+            ></div>
 
           {/* Content Container */}
           <div className="relative z-10 h-full flex items-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="max-w-lg lg:max-w-xl">
-                <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl leading-tight">
+                <h1 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
                   Sell Your Home Fast, As-Is, and Without the Stress
                 </h1>
 
-                <div className="mt-8 space-y-2">
-                  <p className="text-xl text-teal-100">Local, Honest Homebuyers</p>
-                  <div className="flex space-x-4 text-teal-100">
+                <div className="mt-6 sm:mt-8 space-y-2">
+                  <p className="text-lg sm:text-xl text-teal-100">Local, Honest Homebuyers</p>
+                  <div className="flex flex-col sm:flex-row sm:space-x-4 text-teal-100 space-y-1 sm:space-y-0">
                     <span>No Repairs</span>
-                    <span>|</span>
+                    <span className="hidden sm:inline">|</span>
                     <span>No Agent Fees</span>
                   </div>
                 </div>
 
-                <Button size="lg" className="mt-8 bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 text-lg">
+                <Button size="lg" className="mt-6 sm:mt-8 bg-teal-600 hover:bg-teal-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg">
                   Get My Offer Now
                 </Button>
               </div>
