@@ -1,7 +1,3 @@
-const { Resend } = require('resend');
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 exports.handler = async function (event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -26,8 +22,8 @@ exports.handler = async function (event, context) {
       };
     }
 
-    // Send email via Resend
-    await resend.emails.send({
+    // Send email via Resend API (direct HTTP request)
+    const emailData = {
       from: 'TOSYNS Contact Form <onboarding@resend.dev>',
       to: [process.env.CONTACT_EMAIL || 'your-email@example.com'],
       subject: `New Lead from ${name}`,
@@ -38,7 +34,20 @@ exports.handler = async function (event, context) {
         <p><strong>Property Address:</strong> ${address}</p>
         ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
       `,
+    };
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailData),
     });
+
+    if (!response.ok) {
+      throw new Error(`Resend API error: ${response.status}`);
+    }
 
     return {
       statusCode: 200,
