@@ -1,8 +1,25 @@
 exports.handler = async function (event, context) {
+  // Handle CORS preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: '',
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
@@ -20,6 +37,10 @@ exports.handler = async function (event, context) {
     if (!name || !phone || !address) {
       return {
         statusCode: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
         body: JSON.stringify({
           success: false,
           error: 'Please fill in all required fields',
@@ -61,6 +82,12 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
       body: JSON.stringify({
         success: true,
         message: "Thank you! We'll contact you within 24 hours.",
@@ -70,6 +97,10 @@ exports.handler = async function (event, context) {
     console.error('Email send error:', error);
     return {
       statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       body: JSON.stringify({
         success: false,
         error: 'Something went wrong. Please try again.',

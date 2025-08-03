@@ -37,16 +37,28 @@ export default function TosynsLanding() {
         body: JSON.stringify(data),
       })
 
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('HTTP error:', response.status, errorText)
+        setFormState({
+          success: false,
+          error: `HTTP Error ${response.status}: ${errorText}`,
+        })
+        return
+      }
+
       const result = await response.json()
+      console.log('Form submission result:', result)
       setFormState(result)
       
       if (result.success) {
         event.currentTarget.reset()
       }
     } catch (error) {
+      console.error('Form submission error:', error)
       setFormState({
         success: false,
-        error: "Something went wrong. Please try again.",
+        error: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
       })
     }
     
