@@ -19,7 +19,18 @@ export default function TosynsLanding() {
     event.preventDefault()
     setIsSubmitting(true)
     
-    const formData = new FormData(event.currentTarget)
+    // Get form reference safely
+    const form = event.currentTarget || document.getElementById("contact-form") as HTMLFormElement
+    if (!form) {
+      setFormState({
+        success: false,
+        error: "Form not found. Please refresh the page and try again.",
+      })
+      setIsSubmitting(false)
+      return
+    }
+    
+    const formData = new FormData(form)
     const data = {
       name: formData.get("name") as string,
       phone: formData.get("phone") as string,
@@ -52,7 +63,10 @@ export default function TosynsLanding() {
       setFormState(result)
       
       if (result.success) {
-        event.currentTarget.reset()
+        // Reset form using the safe reference
+        if (form) {
+          form.reset()
+        }
       }
     } catch (error) {
       console.error('Form submission error:', error)
