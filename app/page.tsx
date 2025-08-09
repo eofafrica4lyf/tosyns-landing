@@ -273,7 +273,7 @@ export default function TosynsLanding() {
               </div>
 
               <div>
-                <Textarea name="message" placeholder="Optional Message" rows={4} className="w-full" />
+                <Textarea name="message" placeholder="Message" rows={4} className="w-full" />
               </div>
 
               <div className="text-center">
