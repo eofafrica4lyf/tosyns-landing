@@ -37,6 +37,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Tosyns Brand Colors */
+  --tosyns-primary: #00a070; /* Main brand green */
+  --tosyns-primary-dark: #008f63; /* Darker shade for hover states */
+  --tosyns-primary-light: #00b37a; /* Lighter shade for accents */
+  --tosyns-primary-ultra-light: #e6f7f2; /* Very light for backgrounds */
+  --tosyns-primary-text: #ffffff; /* White text on green backgrounds */
+  --tosyns-primary-text-light: #ccf0e6; /* Light text on dark green */
 }
 
 .dark {
@@ -111,6 +119,50 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Custom utility classes for Tosyns brand colors */
+.bg-tosyns-primary {
+  background-color: var(--tosyns-primary);
+}
+.bg-tosyns-primary-dark {
+  background-color: var(--tosyns-primary-dark);
+}
+.bg-tosyns-primary-light {
+  background-color: var(--tosyns-primary-light);
+}
+.bg-tosyns-primary-ultra-light {
+  background-color: var(--tosyns-primary-ultra-light);
+}
+
+.text-tosyns-primary {
+  color: var(--tosyns-primary);
+}
+.text-tosyns-primary-dark {
+  color: var(--tosyns-primary-dark);
+}
+.text-tosyns-primary-light {
+  color: var(--tosyns-primary-light);
+}
+.text-tosyns-primary-text {
+  color: var(--tosyns-primary-text);
+}
+.text-tosyns-primary-text-light {
+  color: var(--tosyns-primary-text-light);
+}
+
+.border-tosyns-primary {
+  border-color: var(--tosyns-primary);
+}
+.border-tosyns-primary-light {
+  border-color: var(--tosyns-primary-light);
+}
+
+.hover\:bg-tosyns-primary-dark:hover {
+  background-color: var(--tosyns-primary-dark);
+}
+.hover\:text-tosyns-primary:hover {
+  color: var(--tosyns-primary);
 }
 
 @layer base {
