@@ -331,7 +331,7 @@ export default function TosynsLanding() {
             </div>
             <span className="text-xl font-bold">TOSYNS</span>
           </div>
-          <p className="text-tosyns-primary-text-light">© 2024 Tosyns. All rights reserved.</p>
+          <p className="text-tosyns-primary-text-light">© 2025 Tosyns. All rights reserved.</p>
         </div>
       </footer>
     </div>
